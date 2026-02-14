@@ -8,14 +8,15 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getUser()
-      if (data.user) {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (session) {
         router.push('/dashboard')
       }
     }
 
-    checkUser()
+    checkSession()
   }, [router])
 
   const handleLogin = async () => {
@@ -30,9 +31,8 @@ export default function Home() {
 
         {/* Title + Emoji in ONE line */}
         <h1 className="text-3xl font-bold mb-3 whitespace-nowrap">
-         Smart Bookmark App 🚀
-         </h1>
-
+          Smart Bookmark App 🚀
+        </h1>
 
         {/* Description in ONE line below */}
         <p className="text-gray-600 mb-6 whitespace-nowrap">
